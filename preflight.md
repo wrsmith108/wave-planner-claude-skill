@@ -27,7 +27,8 @@ fi
 
 # 2. Docker Container
 echo "Checking Docker..."
-if docker ps --filter name=skillsmith-dev-1 --format "{{.Status}}" | grep -q "Up"; then
+CONTAINER_NAME="${CONTAINER_NAME:-<your-container-name>}"
+if docker ps --filter "name=$CONTAINER_NAME" --format "{{.Status}}" | grep -q "Up"; then
   echo "✅ Docker container running"
 else
   echo "⚠️  Docker container not running"
@@ -65,7 +66,7 @@ If not using the script, verify manually:
 | Check | Command | Expected |
 |-------|---------|----------|
 | MCP Server | `grep claude-flow .mcp.json` | Found |
-| Docker | `docker ps \| grep skillsmith` | Running |
+| Docker | `docker ps \| grep <project-name>` | Running |
 | Git-crypt | `git-crypt status` | Unlocked |
 | Linear | `linear issues list --limit 1` | Returns issues |
 

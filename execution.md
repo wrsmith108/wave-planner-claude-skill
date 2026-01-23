@@ -30,7 +30,7 @@ This checklist is enforced by the governance skill. All items must be completed 
 
 ```bash
 # 1. Run code review (AUTOMATIC - see below)
-docker exec skillsmith-dev-1 npm run audit:standards
+docker exec <container-name> npm run audit:standards
 
 # 2. For EACH code review finding, do ONE of:
 #    - Fix it immediately
@@ -67,7 +67,7 @@ If you identify an issue that won't be fixed in the current wave:
 > "This is a minor issue, we can address it later."
 
 **Correct pattern:**
-> "Created SMI-1234 to track this. Deferring to post-merge."
+> "Created PROJ-123 to track this. Deferring to post-merge."
 
 ---
 
@@ -150,10 +150,10 @@ After completing a wave, verify:
 
 ```bash
 # Check all tests pass
-docker exec skillsmith-dev-1 npm test
+docker exec <container-name> npm test
 
 # Check no lint errors
-docker exec skillsmith-dev-1 npm run lint
+docker exec <container-name> npm run lint
 
 # Verify Linear issues updated
 npx tsx ~/.claude/skills/linear/scripts/linear-ops.ts list-issues "Project Name" --status Done

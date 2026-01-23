@@ -21,7 +21,7 @@ Full markdown document with:
 Ready-to-execute YAML for claude-flow:
 
 ```yaml
-name: "Phase 3 Wave 1: Foundation"
+name: "Project Wave 1: Foundation"
 resources:
   max_agents: 3
   profile: laptop
@@ -29,7 +29,7 @@ resources:
 agents:
   - type: backend-developer
     role: lead
-    issues: [SMI-1630, SMI-1629]
+    issues: [PROJ-101, PROJ-102]
 
 quality:
   require_tests: true
@@ -179,8 +179,8 @@ Claude: Planning 6 issues.
 
 [Analyzes for architecture decisions]
 
-SMI-825 needs a decision:
-**Security scan storage location?**
+PROJ-101 needs a decision:
+**Where should feature data be stored?**
 
 A) Separate table
 B) JSON column
@@ -190,31 +190,31 @@ Create an ADR?
 
 User: C, yes create ADR
 
-Claude: Creating ADR-024.
+Claude: Creating ADR-XXX.
 
 [Continues through decisions...]
 
 Analyzing for risks...
 
 Found 2 risks:
-1. External Dependency (SMI-825): npm audit API
-   → Mitigation: Add fallback to local vulnerability DB
-2. Breaking Change (SMI-1632): Schema changes
+1. External Dependency (PROJ-101): Third-party API
+   → Mitigation: Add fallback or cache layer
+2. Breaking Change (PROJ-102): Schema changes
    → Mitigation: Version schema, add migration
 
 [Organizes into waves...]
 [Assigns agents...]
 
 Created:
-- docs/execution/phase-3-implementation-plan.md
-- docs/adr/024-security-scan-storage.md
-- .claude/hive-mind/phase-3-wave-1.yaml
-- .claude/hive-mind/phase-3-wave-2.yaml
+- docs/execution/{project}-implementation-plan.md
+- docs/adr/XXX-feature-storage.md
+- .claude/hive-mind/{project}-wave-1.yaml
+- .claude/hive-mind/{project}-wave-2.yaml
 
-Linked to Linear project.
+Linked to PM tool project.
 
 Execute with:
-./claude-flow swarm --config .claude/hive-mind/phase-3-wave-1.yaml
+./claude-flow swarm --config .claude/hive-mind/{project}-wave-1.yaml
 ```
 
 ---

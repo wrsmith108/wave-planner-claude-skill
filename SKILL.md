@@ -63,7 +63,7 @@ After decisions are made, artifact generation proceeds automatically.
 # Or use natural language (proactive trigger)
 "Plan the implementation for the security hardening project"
 "Break down the API redesign into waves"
-"Create an implementation plan for SMI-1500"
+"Create an implementation plan for PROJ-100"
 ```
 
 ---
@@ -90,7 +90,7 @@ Before wave execution, verify the environment. See **[preflight.md](preflight.md
 | Check | Command | Expected |
 |-------|---------|----------|
 | MCP Server | `grep claude-flow .mcp.json` | Found |
-| Docker | `docker ps \| grep skillsmith` | Running |
+| Docker | `docker ps \| grep <project-name>` | Running |
 | Git-crypt | `git-crypt status` | Unlocked |
 | Linear | `linear issues list --limit 1` | Returns issues |
 
@@ -152,7 +152,7 @@ C) All issues (12 issues)
 Decisions are surfaced one at a time to reduce cognitive load:
 
 ```
-SMI-825 requires an architecture decision:
+PROJ-101 requires an architecture decision:
 
 **Where should security scan results be stored?**
 
@@ -170,12 +170,12 @@ The skill analyzes issues for potential blockers and fail cases:
 ```
 Identified Risks:
 
-1. **External Dependency Risk** (SMI-825)
-   - Issue: Security scanner relies on npm audit API
-   - Mitigation: Add fallback to local vulnerability DB
+1. **External Dependency Risk** (PROJ-101)
+   - Issue: Feature relies on third-party API
+   - Mitigation: Add fallback or cache layer
 
-2. **Breaking Change Risk** (SMI-1632)
-   - Issue: Collection schema changes may break existing indexer
+2. **Breaking Change Risk** (PROJ-102)
+   - Issue: Schema changes may break existing clients
    - Mitigation: Version schema, add migration script
 ```
 
@@ -187,14 +187,14 @@ Issues are grouped by shared code context to minimize agent context-switching:
 
 ```
 Wave 1: Foundation (~81K tokens)
-├── SMI-1630: Error handling
-├── SMI-1629: Node version detection
+├── PROJ-101: Error handling
+├── PROJ-102: Configuration setup
 └── Agent: backend-developer
 
-Wave 2: Security (~95K tokens)
-├── SMI-825: Security scanning
-├── SMI-1632: Collection indexing
-└── Agent: security-specialist
+Wave 2: Feature Implementation (~95K tokens)
+├── PROJ-103: Core feature
+├── PROJ-104: API endpoints
+└── Agent: backend-developer
 ```
 
 ### Phase 5: Artifact Generation
@@ -223,7 +223,7 @@ After planning, execute waves. See **[execution.md](execution.md)** for full det
 ```
 
 **Wave Completion Checklist** (from execution.md):
-1. Run code review: `docker exec skillsmith-dev-1 npm run audit:standards`
+1. Run code review: `docker exec <container-name> npm run audit:standards`
 2. Fix findings OR create Linear sub-issues
 3. Update Linear issue status to Done
 4. Commit with Co-Authored-By
