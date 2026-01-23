@@ -1,0 +1,210 @@
+# Wave Planner Configuration
+# Override these defaults in your project's .claude/config.yaml
+
+wave-planner:
+  # Wave organization limits
+  defaults:
+    max_waves: 6                    # Maximum number of waves per plan
+    max_issues_per_wave: 5          # Soft limit, can exceed for context grouping
+    token_budget_per_wave: 150000   # Target tokens per wave (150K)
+    min_issues_for_planning: 2      # Skip planning for single issues
+
+  # PM tool adapter configuration
+  adapters:
+    # auto | linear | github | jira
+    preferred: auto
+
+    # Detection order when auto
+    detection_order:
+      - check_claude_md           # Look for PM tool in CLAUDE.md
+      - check_skill_availability  # Check which PM skills are installed
+      - prompt_user               # Ask user if ambiguous
+
+    # Fallback if nothing detected
+    fallback: linear
+
+  # Token estimation settings
+  estimation:
+    # Minimum confidence to proceed without warning
+    # low | medium | high
+    confidence_threshold: medium
+
+    # Include review cycle overhead
+    include_review_cycles: true
+    review_cycle_count: 2
+
+    # Multipliers for estimation formula
+    multipliers:
+      context_expansion: 1.5      # Related files multiplier
+      test_overhead: 0.6          # Tests as % of implementation
+      review_overhead: 0.3        # Review as % of (impl + tests)
+      documentation: 0.1          # Docs as % of implementation
+
+    # Complexity multipliers
+    complexity:
+      low: 1.0
+      medium: 1.5
+      high: 2.5
+
+    # Priority multipliers
+    priority:
+      P0-Critical: 1.5
+      P1-High: 1.2
+      P2-Medium: 1.0
+      P3-Low: 0.8
+
+  # Output artifact configuration
+  artifacts:
+    # Create ADRs for architecture decisions
+    create_adrs: true
+    adr_location: docs/adr/
+
+    # Generate hive-mind YAML configs
+    create_hive_configs: true
+    hive_config_location: .claude/hive-mind/
+
+    # Create sub-issues for code review findings
+    create_sub_issues: true
+    sub_issue_labels:
+      - code-review
+      - governance
+
+    # Implementation plan location
+    plan_location: docs/execution/
+
+    # Link artifacts to PM project
+    link_to_project: true
+
+  # Wave organization algorithm
+  organization:
+    # Algorithm for grouping issues
+    # context-sharing | dependency-based | priority-first | hybrid
+    algorithm: context-sharing
+
+    # Minimum Jaccard similarity for context grouping
+    similarity_threshold: 0.3
+
+    # Split waves exceeding this token count
+    split_threshold: 150000
+
+    # Consider dependencies when ordering
+    respect_dependencies: true
+
+  # Agent assignment
+  agents:
+    # Method for assigning agents
+    # llm-inference | label-based | predefined
+    assignment_method: llm-inference
+
+    # Available agent types
+    types:
+      - security-specialist
+      - backend-developer
+      - frontend-developer
+      - test-engineer
+      - devops-engineer
+      - documentation-writer
+      - researcher
+      - general-purpose
+
+    # Default agent if inference fails
+    fallback: general-purpose
+
+  # TDD workflow configuration
+  tdd:
+    # Enforce TDD workflow
+    enabled: true
+
+    # Workflow phases
+    phases:
+      - red       # Write failing tests
+      - green     # Minimal implementation
+      - refactor  # Clean up
+
+    # Governance hook
+    governance:
+      trigger: after_each_commit
+      command: npm run audit:standards
+      create_sub_issues_on_findings: true
+      block_on_critical: true
+
+  # Risk analysis configuration
+  risk_analysis:
+    # Enable risk prediction phase
+    enabled: true
+
+    # Risk categories to analyze
+    categories:
+      - external_dependency
+      - breaking_change
+      - integration
+      - performance
+      - security
+      - data_integrity
+      - resource_constraint
+      - timeline
+
+    # Risk score threshold for adding buffer
+    high_risk_threshold: 50
+
+    # Buffer percentage for high-risk plans
+    risk_buffer_percentage: 20
+
+    # Auto-adjust wave order based on risks
+    auto_adjust_waves: true
+
+    # Generate mitigation strategies
+    generate_mitigations: true
+
+    # Risk impact thresholds for warnings
+    warning_thresholds:
+      critical: 1       # Warn if any critical risks
+      high: 3           # Warn if >3 high risks
+      total_score: 70   # Warn if score >70
+
+  # Decision surfacing
+  decisions:
+    # How to present decisions
+    # one-at-a-time | batched | matrix
+    presentation: one-at-a-time
+
+    # Auto-detect decisions from issue content
+    auto_detect: true
+
+    # Patterns that indicate a decision is needed
+    detection_patterns:
+      - "could do .* or"
+      - "option[s]?:"
+      - "approach[es]?:"
+      - "should we"
+      - "TODO: decide"
+
+    # Topics that always warrant decisions
+    decision_topics:
+      - security
+      - authentication
+      - data-storage
+      - api-contracts
+      - external-dependencies
+
+  # Skill composition
+  composition:
+    # Required skills (will prompt to install if missing)
+    required:
+      - linear  # Or github/jira based on adapter
+
+    # Optional skills (enhanced features if available)
+    optional:
+      - hive-mind
+      - governance
+
+  # Logging and debugging
+  debug:
+    # Log estimation calculations
+    log_estimation: false
+
+    # Log wave organization decisions
+    log_organization: false
+
+    # Dry run mode (no writes)
+    dry_run: false
