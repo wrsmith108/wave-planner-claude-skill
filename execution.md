@@ -112,7 +112,7 @@ Task({
 
 ## Worktree Integration
 
-Wave execution can leverage git worktrees for isolation. See the **worktree-manager** skill for detailed guidance.
+Wave execution can leverage git worktrees for isolation. See the **worktree-manager** skill *(local skill, not publicly available)* for detailed guidance.
 
 ### Strategy Selection
 
