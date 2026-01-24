@@ -312,9 +312,9 @@ Check confidence level. Low confidence estimates include padding for unknowns. R
 
 ## Related Skills
 
-- [linear](../linear/SKILL.md) - PM operations
-- [hive-mind](../hive-mind/SKILL.md) - Swarm execution
-- [governance](../../.claude/skills/governance/SKILL.md) - Code review
+- [linear](https://github.com/wrsmith108/linear-claude-skill) - PM operations
+- hive-mind - Swarm execution *(local skill, available after installation)*
+- [governance](https://github.com/wrsmith108/governance-claude-skill) - Code review
 
 ---
 
