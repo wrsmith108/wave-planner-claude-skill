@@ -73,6 +73,12 @@ GITHUB_TOKEN=ghp_xxx
 - [execution.md](execution.md) - Wave execution guide
 - [reference.md](reference.md) - Detailed reference documentation
 
+## Changelog
+
+### 1.0.1 (2026-02-10)
+
+- **Fixed**: Reverted cross-skill Linear references to absolute paths (required for inter-skill dependencies)
+
 ## License
 
 MIT
