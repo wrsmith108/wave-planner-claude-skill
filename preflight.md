@@ -47,7 +47,7 @@ fi
 
 # 4. Linear API
 echo "Checking Linear access..."
-if npx tsx scripts/linear-ops.ts whoami &>/dev/null; then
+if npx tsx ~/.claude/skills/linear/scripts/linear-ops.ts whoami &>/dev/null; then
   echo "✅ Linear API accessible"
 else
   echo "❌ Linear API not accessible"
