@@ -35,10 +35,10 @@ docker exec <container-name> npm run audit:standards
 # 2. For EACH code review finding, do ONE of:
 #    - Fix it immediately
 #    - Create Linear sub-issue (REQUIRED if deferring)
-npx tsx ~/.claude/skills/linear/scripts/linear-ops.ts create-sub-issue SMI-XXX "Issue title" "Description" --priority 3
+npx tsx scripts/linear-ops.ts create-sub-issue SMI-XXX "Issue title" "Description" --priority 3
 
 # 3. Update Linear issue status
-npx tsx ~/.claude/skills/linear/scripts/linear-ops.ts status Done SMI-XXX SMI-YYY
+npx tsx scripts/linear-ops.ts status Done SMI-XXX SMI-YYY
 
 # 4. Commit with Co-Authored-By
 git commit -m "feat(scope): description
@@ -156,7 +156,7 @@ docker exec <container-name> npm test
 docker exec <container-name> npm run lint
 
 # Verify Linear issues updated
-npx tsx ~/.claude/skills/linear/scripts/linear-ops.ts list-issues "Project Name" --status Done
+npx tsx scripts/linear-ops.ts list-issues "Project Name" --status Done
 
 # Check PR created (if applicable)
 gh pr list --state open
@@ -173,10 +173,10 @@ If a wave introduces breaking changes:
 git revert HEAD~{n}..HEAD
 
 # 2. Update Linear issues back to "In Progress"
-npx tsx ~/.claude/skills/linear/scripts/linear-ops.ts status "In Progress" SMI-XXX SMI-YYY
+npx tsx scripts/linear-ops.ts status "In Progress" SMI-XXX SMI-YYY
 
 # 3. Add comment explaining rollback
-npx tsx ~/.claude/skills/linear/scripts/linear-ops.ts add-comment SMI-XXX "Rolled back due to: [reason]"
+npx tsx scripts/linear-ops.ts add-comment SMI-XXX "Rolled back due to: [reason]"
 
 # 4. Re-plan with updated scope
 /wave-planner "Project Name" --update

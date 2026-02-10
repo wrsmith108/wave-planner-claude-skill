@@ -110,7 +110,7 @@ ls docs/execution/ | grep -i "<project-name>"
 ls .claude/hive-mind/ | grep -i "<project-name>"
 
 # 3. Check Linear for existing project
-npx tsx ~/.claude/skills/linear/scripts/linear-ops.ts list-initiatives | grep -i "<project-name>"
+npx tsx scripts/linear-ops.ts list-initiatives | grep -i "<project-name>"
 linear projects list | grep -i "<project-name>"
 
 # 4. Check for related ADRs
